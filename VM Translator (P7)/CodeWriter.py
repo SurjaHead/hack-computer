@@ -11,9 +11,9 @@ class CodeWriter():
         self.f.write('D=A\n')
         self.f.write('@SP\n')
         self.f.write('M=D\n')
-        # Call Sys.init(0) - this is crucial for the NestedCall test
         self.write_call('Sys.init', 0)
 
+    # To generate unique labels
     def get_label_count(self):
         return self.label_count
     
