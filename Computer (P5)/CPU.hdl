@@ -1,0 +1,135 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/5/CPU.hdl
+/**
+ * The Hack Central Processing unit (CPU).
+ * Parses the binary code in the instruction input and executes it according to the
+ * Hack machine language specification. In the case of a C-instruction, computes the
+ * function specified by the instruction. If the instruction specifies to read a memory
+ * value, the inM input is expected to contain this value. If the instruction specifies
+ * to write a value to the memory, sets the outM output to this value, sets the addressM
+ * output to the target address, and asserts the writeM output (when writeM = 0, any
+ * value may appear in outM).
+ * If the reset input is 0, computes the address of the next instruction and sets the
+ * pc output to that value. If the reset input is 1, sets pc to 0.
+ * Note: The outM and writeM outputs are combinational: they are affected by the
+ * instruction's execution during the current cycle. The addressM and pc outputs are
+ * clocked: although they are affected by the instruction's execution, they commit to
+ * their new values only in the next cycle.
+ */
+CHIP CPU {
+
+    IN  inM[16],         // M value input  (M = contents of RAM[A])
+        instruction[16], // Instruction for execution
+        reset;           // Signals whether to re-start the current
+                         // program (reset==1) or continue executing
+                         // the current program (reset==0).
+
+    OUT outM[16],        // M value output
+        writeM,          // Write to M? 
+        addressM[15],    // Address in data memory (of M)
+        pc[15];          // address of next instruction
+
+    PARTS:
+    Not(in=instruction[15], out= OpCodeNot);   
+	Mux16(a= ALUOutput, b= instruction, sel= OpCodeNot, out= ARegInput);
+
+    // y input
+    And(a= instruction[15], b= instruction[5], out= ARegLoadTemp);
+    Or(a= ARegLoadTemp, b= OpCodeNot, out= ARegLoad);
+    ARegister(in= ARegInput, load= ARegLoad, out= ARegOutput);
+    Mux16(a= ARegOutput, b= inM, sel= instruction[12], out= ALUInputY);
+
+    // x input 
+    // I FORGOT TO CHECK FOR C INSTRUCTION WHEN LOADING THE D REGISTER, SO THE OUTPUT WAS BEING CHANGED EVEN WHEN IT WAS AN A INSTRUCTION
+    And(a= instruction[15], b= instruction[4], out= loadD);
+    DRegister(in= ALUOutput, load= loadD, out= ALUInputX);
+
+    //ALU
+    ALU(x= ALUInputX, y= ALUInputY, zx= instruction[11], nx= instruction[10], zy= instruction[9], ny= instruction[8], f= instruction[7], no= instruction[6], out= ALUOutput, zr= zr, ng= ng);
+
+
+    Not(in= instruction[2], out= J1Not);
+    Not(in= instruction[1], out= J2Not);
+    Not(in= instruction[0], out= J3Not);
+    Not(in= zr, out= zrNot);
+    Not(in= ng, out= ngNot);
+
+    // JGT
+    And(a= J1Not, b= J2Not, out= jgtand1);
+    And(a= jgtand1, b= instruction[0], out= jgtand2);
+    And(a= jgtand2, b= zrNot, out= jgtand3);
+    And(a= jgtand3, b= ngNot, out= jgtand4);
+    And(a= jgtand4, b= instruction[15], out= jgt);
+    Not(in= jgt, out= jgtNot);
+
+    // JEQ
+    And(a= J1Not, b= instruction[1], out= jeqand1);
+    And(a= jeqand1, b= J3Not, out= jeqand2);
+    And(a= jeqand2, b= zr, out= jeqand3);
+    And(a= jeqand3, b= instruction[15], out= jeq);
+    Not(in= jeq, out= jeqNot);
+
+    // JGE
+    And(a= J1Not, b= instruction[1], out= jgeand1);
+    And(a= jgeand1, b= instruction[0], out= jgeand2);
+    Or(a= ngNot, b= zr, out= jgeCond);
+    And(a= jgeand2, b= jgeCond, out= jgeand3);
+    And(a= jgeand3, b= instruction[15], out= jge);
+    Not(in= jge, out= jgeNot);
+
+    // JLT
+    And(a= instruction[2], b= J2Not, out= jltand1);
+    And(a= jltand1, b= J3Not, out= jltand2);
+    And(a= jltand2, b= ng, out= jltand3);
+    And(a= jltand3, b= instruction[15], out= jlt);
+    Not(in= jlt, out= jltNot);
+
+    // JNE
+    And(a= instruction[2], b= J2Not, out= jneand1);
+    And(a= jneand1, b= instruction[0], out= jneand2);
+    And(a= jneand2, b= zrNot, out= jneand3);
+    And(a= jneand3, b= instruction[15], out= jne);
+    Not(in= jne, out= jneNot);
+
+    // JLE
+    And(a= instruction[2], b= instruction[1], out= jleand1);
+    And(a= jleand1, b= J3Not, out= jleand2);
+    Or(a= ng, b= zr, out= jleCond);
+    And(a= jleand2, b= jleCond, out= jleand3);
+    And(a= jleand3, b= instruction[15], out= jle);
+    Not(in= jle, out= jleNot);
+
+    // JMP
+    And(a= instruction[2], b= instruction[1], out= jmpand1);
+    And(a= jmpand1, b= instruction[0], out= jmpand2);
+    And(a= jmpand2, b= instruction[15], out= jmp);
+    Not(in= jmp, out= jmpNot);
+
+    Or(a= jgt, b= jeq, out= or1);
+    Or(a= or1, b= jge, out= or2);
+    Or(a= or2, b= jlt, out= or3);
+    Or(a= or3, b= jne, out= or4);
+    Or(a= or4, b= jle, out= or5);
+    Or(a= or5, b= jmp, out= PCLoadTemp);
+    And(a= instruction[15], b= PCLoadTemp, out= PCLoad);
+
+    // inc logic for PC
+    Not(in= PCLoad , out= inc);
+
+    //PC
+    PC(in= ARegOutput, load= PCLoad, inc= inc, reset= reset, out[0..14]=pc);
+
+    //outM
+    Not16(in= ALUOutput, out= notALUOutput);
+    Not16(in= notALUOutput, out= outM);
+
+    //addressM
+    Not16(in= ARegOutput, out= notARegOutput);
+    Not16(in= notARegOutput, out[0..14]= addressM);
+
+    //writeM
+    And(a= instruction[3], b= instruction[15], out= writeM);
+
+}
