@@ -4,7 +4,7 @@
 
 This is a programmable 16-bit computer I built during the NAND2Tetris course. It was a result of my desire to understand to uncover the abstraction of computers.
 
-*** NOTE: I didn't realize that I could build new chips with previous chips I've built so most of my implementations in P1 are very convoluted, as I built them with NAND gates.
+**NOTE: I didn't realize that I could build new chips with previous chips I've built so most of my implementations in P1 are very convoluted, as I built them with NAND gates.**
 
 ## Content
 
