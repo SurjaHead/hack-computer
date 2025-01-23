@@ -16,5 +16,23 @@ CHIP DMux4Way {
     PARTS:
     //// Replace this comment with your code.
 
-    // wrote the logic diagram down, but too lazy to implement
+    Not(in= sel[1], out= notSel1);
+    Not(in= sel[0], out= notSel0);
+
+    // a
+    And(a= in, b= notSel1, out= tempAndA);
+    And(a= tempAndA, b= notSel0, out= a);
+
+    // b
+    And(a= in, b= notSel1, out= tempAndB);
+    And(a= tempAndB, b= sel[0], out= b);
+
+    // c
+    And(a= in, b= sel[1], out= tempAndC);
+    And(a= tempAndC, b= notSel0, out= c);
+
+    // d
+    And(a= in, b= sel[1], out= tempAndD);
+    And(a= tempAndD, b= sel[0], out= d);
+
 }
