@@ -14,5 +14,10 @@ CHIP PC {
     OUT out[16];
     
     PARTS:
-    //// Replace this comment with your code.
+    Inc16(in= originalOut, out= incr);
+    Mux16(a= originalOut, b= incr, sel= inc, out= incOut);
+    Mux16(a= incOut, b= in, sel= load, out= loadOut);
+    Mux16(a= loadOut, b= false, sel= reset, out= resetOut);
+    // remember that you can set the output to 2 separate pins
+    Register(in= resetOut, load= true, out= out, out= originalOut);
 }
