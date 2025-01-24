@@ -87,50 +87,13 @@ Organizing assembly code effectively:
    - Result storage
    - Status indication
 
-### Optimization Techniques
-
-Several strategies for efficient code:
-
-- Minimize instruction count
-- Smart register usage
-- Efficient loop structures
-- Memory access optimization
-
-## Testing Methodology
-
-### Test Scripts
+## Test Scripts
 
 Detailed test scripts provided:
 
 - Input scenarios
 - Expected outputs
 - Performance metrics
-
-## Common Challenges and Solutions
-
-### Memory Management
-
-Effective memory utilization:
-
-- Clear variable allocation
-- Register optimization
-- Stack discipline
-
-### Control Flow
-
-Managing program flow:
-
-- Label placement
-- Jump conditions
-- Loop control
-
-### Debugging Techniques
-
-Systematic debugging approach:
-
-- Memory inspection
-- Step-by-step execution
-- State verification
 
 ## Learning Outcomes
 
@@ -142,45 +105,9 @@ This project teaches:
 - Low-level optimization
 - Hardware-software interface
 
-## Best Practices
-
-### Code Organization
-
-- Clear variable declarations
-- Meaningful label names
-- Comprehensive comments
-- Consistent formatting
-
-### Documentation
-
-Important documentation elements:
-
-- Program purpose
-- Memory usage map
-- Register allocation
-- Algorithm explanation
-
-### Performance Considerations
-
-Key optimization areas:
-
-- Instruction reduction
-- Memory access patterns
-- Loop efficiency
-- Register usage
-
-## Usage Instructions
-
-### Running Programs
+## Running Programs
 
 1. Load program in CPU Emulator
 2. Set up test conditions
 3. Execute step-by-step or continuously
 4. Verify results
-
-### Debugging Process
-
-1. Use CPU Emulator's debugging features
-2. Monitor register contents
-3. Track memory states
-4. Verify program flow

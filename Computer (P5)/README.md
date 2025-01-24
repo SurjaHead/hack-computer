@@ -125,7 +125,7 @@ We use several programs to verify system functionality:
    - Tests all system aspects
    - Demonstrates real-world capability
 
-## Implementation Notes
+<!-- ## Implementation Notes
 
 ### CPU Design Decisions
 
@@ -162,24 +162,7 @@ The memory system demonstrates careful consideration of:
    - Seamless screen integration
    - Responsive keyboard input
    - Efficient memory mapping
-
-## Common Challenges and Solutions
-
-### Timing Considerations
-
-Ensuring proper synchronization:
-
-- Clock-based operation sequencing
-- Proper handling of multi-cycle operations
-- Consistent memory access timing
-
-### Control Signal Generation
-
-Managing complex control logic:
-
-- Systematic instruction decoding
-- Clear signal routing
-- Efficient control path design
+ -->
 
 ## Learning Outcomes
 
@@ -191,9 +174,7 @@ This project provides deep understanding of:
 - Digital design methodology
 - Testing and verification approaches
 
-## Usage Guide
-
-### Running Programs
+## Running Programs
 
 To execute programs on the computer:
 
@@ -201,21 +182,3 @@ To execute programs on the computer:
 2. Choose a program file (.hack)
 3. Use the hardware simulator
 4. Monitor execution results
-
-### Debugging Support
-
-For troubleshooting:
-
-1. Use built-in debugging tools
-2. Monitor internal signals
-3. Step through execution
-4. Verify component states
-
-## Connection to Future Projects
-
-This hardware platform supports:
-
-- Assembly programming (Project 4)
-- Machine language translation (Project 6)
-- Virtual machine implementation (Projects 7-8)
-- High-level language compilation (Projects 10-11)

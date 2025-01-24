@@ -92,32 +92,6 @@ The project includes comprehensive test scripts:
 - Compare files (.cmp)
 - Output files (.out)
 
-## Common Challenges and Solutions
-
-### Time Management
-
-Understanding clock-based operations:
-
-- Synchronization of components
-- Proper timing of load operations
-- Managing propagation delays
-
-### Memory Addressing
-
-Efficient address handling:
-
-- DMux for address decoding
-- Mux for output selection
-- Hierarchical address breakdown
-
-### Scale Management
-
-Handling larger memory units:
-
-- Reuse of smaller components
-- Consistent addressing schemes
-- Maintainable implementation patterns
-
 ## Learning Outcomes
 
 Through this project, we gain understanding of:
@@ -128,9 +102,7 @@ Through this project, we gain understanding of:
 - Hardware verification methods
 - Scalable hardware design
 
-## Usage Guidelines
-
-### Testing Individual Components
+## Testing Individual Components
 
 1. Load component into Hardware Simulator
 2. Run corresponding test script
