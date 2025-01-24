@@ -1,4 +1,4 @@
-# Hack Computer
+<!-- # Hack Computer
 
 ---
 
@@ -55,4 +55,95 @@ Resulting Add.hack:
 1110000010010000
 0000000000000000
 1110001100001000
-```
+``` -->
+
+# Hack Computer
+
+This repository contains my implementation of the projects from the "NAND2Tetris" course, where we build a modern 16-bit computer system from the ground up, starting with basic NAND gates and working our way up to high-level applications.
+
+## Project Structure
+
+The repository is organized into individual project folders, each focusing on a specific layer of the computer system:
+
+### Hardware Projects (Projects 1-5)
+
+- **Project 1**: Boolean Logic
+  - Implementation of basic logic gates using NAND
+  - Gates include Not, And, Or, Xor, Multiplexer, and Demultiplexer
+- **Project 2**: Boolean Arithmetic
+  - Implementation of arithmetic chips
+  - Half-Adder, Full-Adder, ALU, and more
+- **Project 3**: Sequential Logic
+  - Implementation of memory elements
+  - Flip-Flops, Registers, RAM units, and Program Counter
+- **Project 4**: Machine Language Programming
+  - Writing low-level assembly programs
+  - Understanding the Hack machine language
+- **Project 5**: Computer Architecture
+  - Implementation of the Hack CPU and complete computer system
+  - Integration of CPU, Memory, and I/O
+
+### Software Projects (Projects 6-12)
+
+- **Project 6**: Assembler
+  - Translates assembly language into binary code
+  - Written in [your chosen language]
+- **Project 7-8**: VM Translator
+  - Two-tier compilation implementation
+  - Translates VM code into assembly
+  - Handles stack arithmetic and memory access
+- **Project 9**: High-Level Programming
+  - Application development in Jack language
+  - [Description of your specific implementation]
+- **Project 10-11**: Compiler
+  - Jack language compiler development
+  - Syntax analysis and code generation
+- **Project 12**: Operating System
+  - Implementation of basic OS services
+  - Math, Memory, Screen, Keyboard handling
+
+## Technical Details
+
+### Tools and Languages Used
+
+- Hardware Description Language (HDL) for hardware simulation
+- Python for software components such as the VM transalator and compiler
+- Jack programming language for high-level applications
+
+### Testing Methodology
+
+To test the files, go to the [NAND2Tetris IDE](https://nand2tetris.github.io/web-ide/chip/), and choose the appropriate project. When you run the code, the IDE compares it to the answer and show's the different between the ideal output and your output.
+
+## Getting Started
+
+To explore this repository:
+
+1. Clone the repository:
+
+   ```bash
+   git clone [your-repo-url]
+   ```
+
+2. Each project folder contains:
+
+   - Source code files
+   - Test files
+   - README with project-specific details
+   - Implementation notes where relevant
+
+3. To run the projects:
+   - Follow the setup instructions in each project's README
+   - Use the official nand2tetris software suite available at www.nand2tetris.org
+
+## Resources and References
+
+- Official course website: www.nand2tetris.org
+- Course textbook: "The Elements of Computing Systems"
+
+## Acknowledgments
+
+- Noam Nisan and Shimon Schocken for creating this amazing course
+
+---
+
+**Note**: This is an ongoing project, and some sections may be under development.
