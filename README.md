@@ -121,7 +121,7 @@ To explore this repository:
 1. Clone the repository:
 
    ```bash
-   git clone [your-repo-url]
+   git clone https://github.com/SurjaHead/hack-computer.git
    ```
 
 2. Each project folder contains:
