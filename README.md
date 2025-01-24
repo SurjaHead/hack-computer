@@ -87,14 +87,13 @@ The repository is organized into individual project folders, each focusing on a 
 
 - **Project 6**: Assembler
   - Translates assembly language into binary code
-  - Written in [your chosen language]
+  - Written in Python
 - **Project 7-8**: VM Translator
   - Two-tier compilation implementation
   - Translates VM code into assembly
   - Handles stack arithmetic and memory access
 - **Project 9**: High-Level Programming
   - Application development in Jack language
-  - [Description of your specific implementation]
 - **Project 10-11**: Compiler
   - Jack language compiler development
   - Syntax analysis and code generation
