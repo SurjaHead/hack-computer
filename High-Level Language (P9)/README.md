@@ -47,22 +47,6 @@ High-Level Language (P9)/
 - Manages paddle position constraints
 - Controls paddle size and properties
 
-## Technical Implementation
-
-### Graphics System
-
-- Screen buffer management for smooth animation
-- Real-time rendering of game objects
-- Efficient screen updates for performance
-- Collision boundary visualization
-
-### Input Handling
-
-- Real-time keyboard monitoring
-- Paddle movement control
-- Game state controls (restart, quit)
-- Response time optimization
-
 ## Building and Running
 
 1. Compile the Jack files using the Jack compiler in the NAND2Tetris IDE.
@@ -81,15 +65,6 @@ High-Level Language (P9)/
 - S: Move left paddle down
 - Q: Quit game
 
-## Implementation Features
-
-### Core Game Mechanics
-
-- Smooth paddle movement
-- Realistic ball physics
-- Score tracking
-- Wall and paddle collisions
-
 ## Known Limitations
 
 - At the moment, both paddles cannot be moved at the same time, as the OS can't detect 2 keys pressed at the same time.
@@ -102,14 +77,3 @@ High-Level Language (P9)/
   - Memory class for object management
 - Jack Compiler
 - VM Emulator
-
-## Learning Outcomes
-
-This implementation demonstrates:
-
-- Object-oriented design in Jack
-- Real-time game programming
-- Graphics and animation techniques
-- User input handling
-- Game physics implementation
-- Memory management in Jack
