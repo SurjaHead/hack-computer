@@ -1,0 +1,95 @@
+class Ball {
+    field int x, y;        // Ball position
+    field int size;        // Ball size (diameter)
+    field int deltaX, deltaY;  // Movement direction and speed
+    
+    constructor Ball new() {
+        // Start ball in middle of screen
+        let x = 256;
+        let y = 128;
+        let size = 6;
+        
+        // Initial movement direction (left and slightly down)
+        let deltaX = -6;
+        let deltaY = 6;
+        
+        do draw();
+        return this;
+    }
+    
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    method void draw() {
+        do Screen.setColor(true);
+        do drawBall();
+        return;
+    }
+    
+    method void erase() {
+        do Screen.setColor(false);
+        do drawBall();
+        return;
+    }
+    
+    method void drawBall() {
+        // Only draw if within screen bounds
+        if ((x > size) & (x < (511 - size)) & 
+            (y > size) & (y < (255 - size))) {
+            do Screen.drawCircle(x, y, size);
+        }
+        return;
+    }
+    
+    method void move(Paddle left, Paddle right) {
+        var int newX, newY;
+        
+        // Calculate new position
+        let newX = x + deltaX;
+        let newY = y + deltaY;
+        
+        // Check top/bottom wall collisions before updating position
+        if ((newY < (size + 1)) | (newY > (255 - size))) {
+            let deltaY = -deltaY;  // Reverse vertical direction
+        }
+        
+        // Recalculate position after potential bounce
+        let newY = y + deltaY;
+        let newX = x + deltaX;
+        
+        // Erase ball at current position
+        do erase();
+        
+        // Update position
+        let x = newX;
+        let y = newY;
+        
+        // Draw ball at new position
+        do draw();
+        return;
+    }
+    
+    method void bounce(int paddleY, int paddleLength) {
+        let deltaX = -deltaX;  
+        
+        // Increased vertical speeds for more dynamic gameplay
+        if (y < (paddleY + (paddleLength/3))) {
+            let deltaY = -6;  // Changed from 2 to 4
+        } else {
+            if (y > (paddleY + ((paddleLength*2)/3))) {
+                let deltaY = 6;  // Changed from 2 to 4
+            }
+        }
+        return;
+    }
+    
+    // Getters for collision detection
+    method int getLeft() { return x - size; }
+    method int getRight() { return x + size; }
+    method int getTop() { return y - size; }
+    method int getBottom() { return y + size; }
+}
+
+

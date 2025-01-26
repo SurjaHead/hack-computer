@@ -1,0 +1,136 @@
+class PongGame {
+    field Paddle leftPaddle;
+    field Paddle rightPaddle;
+    field Ball ball;
+    field int leftDirection, rightDirection;
+    field boolean gameRunning;
+    field int leftScore, rightScore;
+    
+    constructor PongGame new() {
+        let leftPaddle = Paddle.new(20, 50, 60, 10);
+        let rightPaddle = Paddle.new(480, 50, 60, 10);
+        let ball = Ball.new();
+        let leftDirection = 0;
+        let rightDirection = 0;
+        let gameRunning = true;
+        let leftScore = 0;
+        let rightScore = 0;
+        do drawScore();
+        return this;
+    }
+    
+    method void drawScore() {
+        // Move back to default color and clear the area
+        do Screen.setColor(false);
+        do Screen.drawRectangle(220, 0, 290, 12);
+        
+        // Set back to drawing color
+        do Screen.setColor(true);
+        
+        // Reset cursor and print scores
+        do Output.moveCursor(0, 27);
+        do Output.printInt(leftScore);
+        do Output.printString(" - ");
+        do Output.printInt(rightScore);
+        
+        return;
+    }
+        
+    method void checkCollisions() {
+        // Check left paddle collision
+        if ((ball.getLeft() < (30)) & (ball.getRight() > 20)) {
+            if ((ball.getTop() < (leftPaddle.getBottom())) & 
+                (ball.getBottom() > (leftPaddle.getTop()))) {
+                do ball.bounce(leftPaddle.getTop(), leftPaddle.getLength());
+            }
+        }
+        
+        // Check right paddle collision
+        if ((ball.getRight() > (480)) & (ball.getLeft() < 490)) {
+            if ((ball.getTop() < (rightPaddle.getBottom())) & 
+                (ball.getBottom() > (rightPaddle.getTop()))) {
+                do ball.bounce(rightPaddle.getTop(), rightPaddle.getLength());
+            }
+        }
+        
+        // Check scoring and clean up missed balls
+        if (ball.getLeft() < 1) {  // Right scores
+            let rightScore = rightScore + 1;
+            // Erase the old ball before creating new one
+            do ball.erase();
+            do ball.dispose();
+            let ball = Ball.new();
+            do drawScore();
+        }
+        if (ball.getRight() > 510) {  // Left scores
+            let leftScore = leftScore + 1;
+            // Erase the old ball before creating new one
+            do ball.erase();
+            do ball.dispose();
+            let ball = Ball.new();
+            do drawScore();
+        }
+        return;
+    }
+
+    method void movePaddles() {
+        // Check and move right paddle
+        if (rightDirection = 1) { do rightPaddle.moveUp(); }
+        if (rightDirection = 2) { do rightPaddle.moveDown(); }
+        
+        // Check and move left paddle
+        if (leftDirection = 1) { do leftPaddle.moveUp(); }
+        if (leftDirection = 2) { do leftPaddle.moveDown(); }
+
+        do Sys.wait(5);
+        return;
+    }
+
+    method void run() {
+        var char key;
+        var boolean exit;
+        
+        let exit = false;
+        
+        while (~exit) {
+            // Get each key press separately and update directions
+            let key = Keyboard.keyPressed();
+            
+            if (key = 81) { let exit = true; }  // q key
+            
+            // Right paddle movement
+            if (Keyboard.keyPressed() = 131) { let rightDirection = 1; }    // up
+            if (Keyboard.keyPressed() = 133) { let rightDirection = 2; }    // down
+            
+            // Left paddle movement
+            if (Keyboard.keyPressed() = 119) { let leftDirection = 1; }     // w
+            if (Keyboard.keyPressed() = 115) { let leftDirection = 2; }     // s
+            
+            // Reset directions only if keys not pressed
+            if ((Keyboard.keyPressed() = 0) | 
+                (~(Keyboard.keyPressed() = 131) & ~(Keyboard.keyPressed() = 133))) {
+                let rightDirection = 0;
+            }
+            if ((Keyboard.keyPressed() = 0) | 
+                (~(Keyboard.keyPressed() = 119) & ~(Keyboard.keyPressed() = 115))) {
+                let leftDirection = 0;
+            }
+            
+            // Move paddles
+            do movePaddles();
+            
+            // Move ball and check collisions
+            do ball.move(leftPaddle, rightPaddle);
+            do checkCollisions();
+        }
+        return;
+    }
+
+    method void dispose() {
+        do leftPaddle.dispose();
+        do rightPaddle.dispose();
+        do ball.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

@@ -1,0 +1,72 @@
+class Paddle {
+    field int x, y;  // screen location of top left corner
+    field int l, w;  // length and width of rectangle
+    
+    constructor Paddle new(int Ax, int Ay, int Al, int Aw) {
+        let x = Ax;
+        let y = Ay;
+        let l = Al;
+        let w = Aw;
+        do draw();
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + w, y + l);
+        return;
+    }
+
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x, y, x + w, y + l);
+        return;
+    }
+
+    // Add to Paddle.jack
+    method int getTop() { return y; }
+    method int getBottom() { return y + l; }
+    method int getLength() { return l; }
+
+    method void moveUp() {
+        // Only move if not at top of screen 
+        if (y > 7) {  // Leave a small 1-pixel buffer at top
+            // First erase the entire paddle
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x, y, x + w, y + l);
+            
+            // Update position
+            let y = y - 7;            
+            
+            // Draw entire paddle in new position
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x, y, x + w, y + l);
+        }
+        return;
+    }
+
+    method void moveDown() {
+        var int bottomEdge;
+        let bottomEdge = y + l;
+        
+        // Only move if there's room below
+        if ((bottomEdge + 7) < 256) {  // Check if we have space to move down
+            // First erase the entire paddle
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x, y, x + w, y + l);
+            
+            // Update position
+            let y = y + 7;            
+            
+            // Draw entire paddle in new position
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x, y, x + w, y + l);
+        }
+        return;
+    }
+}
