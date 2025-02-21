@@ -57,7 +57,7 @@ Resulting Add.hack:
 1110001100001000
 ``` -->
 
-# Hack Computer
+# Tiny Computer
 
 This repository contains my implementation of the projects from the "NAND2Tetris" course, where we build a modern 16-bit computer system from the ground up, starting with basic NAND gates and working our way up to high-level applications.
 
