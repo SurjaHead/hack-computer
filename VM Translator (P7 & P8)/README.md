@@ -95,27 +95,6 @@ vm_translator/
     └── sample_programs/  # Example VM programs
 ```
 
-## Implementation Notes
-
-### Stack Operations
-
-- Push: Loads value to stack
-- Pop: Retrieves value from stack
-- Arithmetic: Operates on stack values
-
-### Function Handling
-
-- Local variable initialization
-- Argument passing
-- Return address management
-- Frame restoration
-
-### Bootstrap Code
-
-- Initializes stack pointer
-- Sets up memory segments
-- Calls Sys.init
-
 ## Usage Instructions
 
 ### Basic Usage
@@ -128,11 +107,6 @@ python vm_translator.py <input_path>
 
 - Single file translation
 - Directory translation
-
-## Dependencies
-
-- Python 3.x
-- Standard library modules only
 
 ## Learning Outcomes
 
