@@ -64,47 +64,6 @@ project4/
     └── Rect.asm           # Rectangle drawing example
 ```
 
-## Implementation Guidelines
-
-### Program Structure
-
-Organizing assembly code effectively:
-
-1. Variable Initialization
-
-   - Clear memory allocation
-   - Initial value setting
-   - Register preparation
-
-2. Main Logic
-
-   - Clear control flow
-   - Efficient computations
-   - Memory management
-
-3. Program Termination
-   - Proper cleanup
-   - Result storage
-   - Status indication
-
-## Test Scripts
-
-Detailed test scripts provided:
-
-- Input scenarios
-- Expected outputs
-- Performance metrics
-
-## Learning Outcomes
-
-This project teaches:
-
-- Assembly language programming
-- Computer architecture concepts
-- Memory management principles
-- Low-level optimization
-- Hardware-software interface
-
 ## Running Programs
 
 1. Load program in CPU Emulator
