@@ -1,0 +1,386 @@
+function PongGame.new 0
+    push constant 8
+    call Memory.alloc 1
+    pop pointer 0
+    push constant 20
+    push constant 50
+    push constant 60
+    push constant 10
+    call Paddle.new 4
+    pop this 0
+    push constant 480
+    push constant 50
+    push constant 60
+    push constant 10
+    call Paddle.new 4
+    pop this 1
+    call Ball.new 0
+    pop this 2
+    push constant 0
+    pop this 3
+    push constant 0
+    pop this 4
+    push constant 1
+    neg
+    pop this 5
+    push constant 0
+    pop this 6
+    push constant 0
+    pop this 7
+    push pointer 0
+    call PongGame.drawScore 1
+    pop temp 0
+    push pointer 0
+    return
+function PongGame.drawScore 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    call Screen.setColor 1
+    pop temp 0
+    push constant 220
+    push constant 0
+    push constant 290
+    push constant 12
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+    push constant 0
+    push constant 27
+    call Output.moveCursor 2
+    pop temp 0
+    push this 6
+    call Output.printInt 1
+    pop temp 0
+    push constant 3
+    call String.new 1
+    push constant 32
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push this 7
+    call Output.printInt 1
+    pop temp 0
+    push constant 0
+    return
+function PongGame.checkCollisions 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    call Ball.getLeft 1
+    push constant 30
+    lt
+    push this 2
+    call Ball.getRight 1
+    push constant 20
+    gt
+    and
+    not
+    if-goto PongGame_1
+    push this 2
+    call Ball.getTop 1
+    push this 0
+    call Paddle.getBottom 1
+    lt
+    push this 2
+    call Ball.getBottom 1
+    push this 0
+    call Paddle.getTop 1
+    gt
+    and
+    not
+    if-goto PongGame_3
+    push this 2
+    push this 0
+    call Paddle.getTop 1
+    push this 0
+    call Paddle.getLength 1
+    call Ball.bounce 3
+    pop temp 0
+    goto PongGame_2
+label PongGame_3
+label PongGame_2
+    goto PongGame_0
+label PongGame_1
+label PongGame_0
+    push this 2
+    call Ball.getRight 1
+    push constant 480
+    gt
+    push this 2
+    call Ball.getLeft 1
+    push constant 490
+    lt
+    and
+    not
+    if-goto PongGame_5
+    push this 2
+    call Ball.getTop 1
+    push this 1
+    call Paddle.getBottom 1
+    lt
+    push this 2
+    call Ball.getBottom 1
+    push this 1
+    call Paddle.getTop 1
+    gt
+    and
+    not
+    if-goto PongGame_7
+    push this 2
+    push this 1
+    call Paddle.getTop 1
+    push this 1
+    call Paddle.getLength 1
+    call Ball.bounce 3
+    pop temp 0
+    goto PongGame_6
+label PongGame_7
+label PongGame_6
+    goto PongGame_4
+label PongGame_5
+label PongGame_4
+    push this 2
+    call Ball.getLeft 1
+    push constant 1
+    lt
+    not
+    if-goto PongGame_9
+    push this 7
+    push constant 1
+    add
+    pop this 7
+    push this 2
+    call Ball.erase 1
+    pop temp 0
+    push this 2
+    call Ball.dispose 1
+    pop temp 0
+    call Ball.new 0
+    pop this 2
+    push pointer 0
+    call PongGame.drawScore 1
+    pop temp 0
+    goto PongGame_8
+label PongGame_9
+label PongGame_8
+    push this 2
+    call Ball.getRight 1
+    push constant 510
+    gt
+    not
+    if-goto PongGame_11
+    push this 6
+    push constant 1
+    add
+    pop this 6
+    push this 2
+    call Ball.erase 1
+    pop temp 0
+    push this 2
+    call Ball.dispose 1
+    pop temp 0
+    call Ball.new 0
+    pop this 2
+    push pointer 0
+    call PongGame.drawScore 1
+    pop temp 0
+    goto PongGame_10
+label PongGame_11
+label PongGame_10
+    push constant 0
+    return
+function PongGame.movePaddles 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    push constant 1
+    eq
+    not
+    if-goto PongGame_13
+    push this 1
+    call Paddle.moveUp 1
+    pop temp 0
+    goto PongGame_12
+label PongGame_13
+label PongGame_12
+    push this 4
+    push constant 2
+    eq
+    not
+    if-goto PongGame_15
+    push this 1
+    call Paddle.moveDown 1
+    pop temp 0
+    goto PongGame_14
+label PongGame_15
+label PongGame_14
+    push this 3
+    push constant 1
+    eq
+    not
+    if-goto PongGame_17
+    push this 0
+    call Paddle.moveUp 1
+    pop temp 0
+    goto PongGame_16
+label PongGame_17
+label PongGame_16
+    push this 3
+    push constant 2
+    eq
+    not
+    if-goto PongGame_19
+    push this 0
+    call Paddle.moveDown 1
+    pop temp 0
+    goto PongGame_18
+label PongGame_19
+label PongGame_18
+    push constant 5
+    call Sys.wait 1
+    pop temp 0
+    push constant 0
+    return
+function PongGame.run 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 1
+label PongGame_20
+    push local 1
+    not
+    not
+    if-goto PongGame_21
+    call Keyboard.keyPressed 0
+    pop local 0
+    push local 0
+    push constant 81
+    eq
+    not
+    if-goto PongGame_23
+    push constant 1
+    neg
+    pop local 1
+    goto PongGame_22
+label PongGame_23
+label PongGame_22
+    call Keyboard.keyPressed 0
+    push constant 131
+    eq
+    not
+    if-goto PongGame_25
+    push constant 1
+    pop this 4
+    goto PongGame_24
+label PongGame_25
+label PongGame_24
+    call Keyboard.keyPressed 0
+    push constant 133
+    eq
+    not
+    if-goto PongGame_27
+    push constant 2
+    pop this 4
+    goto PongGame_26
+label PongGame_27
+label PongGame_26
+    call Keyboard.keyPressed 0
+    push constant 119
+    eq
+    not
+    if-goto PongGame_29
+    push constant 1
+    pop this 3
+    goto PongGame_28
+label PongGame_29
+label PongGame_28
+    call Keyboard.keyPressed 0
+    push constant 115
+    eq
+    not
+    if-goto PongGame_31
+    push constant 2
+    pop this 3
+    goto PongGame_30
+label PongGame_31
+label PongGame_30
+    call Keyboard.keyPressed 0
+    push constant 0
+    eq
+    call Keyboard.keyPressed 0
+    push constant 131
+    eq
+    not
+    call Keyboard.keyPressed 0
+    push constant 133
+    eq
+    not
+    and
+    or
+    not
+    if-goto PongGame_33
+    push constant 0
+    pop this 4
+    goto PongGame_32
+label PongGame_33
+label PongGame_32
+    call Keyboard.keyPressed 0
+    push constant 0
+    eq
+    call Keyboard.keyPressed 0
+    push constant 119
+    eq
+    not
+    call Keyboard.keyPressed 0
+    push constant 115
+    eq
+    not
+    and
+    or
+    not
+    if-goto PongGame_35
+    push constant 0
+    pop this 3
+    goto PongGame_34
+label PongGame_35
+label PongGame_34
+    push pointer 0
+    call PongGame.movePaddles 1
+    pop temp 0
+    push this 2
+    push this 0
+    push this 1
+    call Ball.move 3
+    pop temp 0
+    push pointer 0
+    call PongGame.checkCollisions 1
+    pop temp 0
+    goto PongGame_20
+label PongGame_21
+    push constant 0
+    return
+function PongGame.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    call Paddle.dispose 1
+    pop temp 0
+    push this 1
+    call Paddle.dispose 1
+    pop temp 0
+    push this 2
+    call Ball.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

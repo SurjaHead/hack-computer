@@ -1,0 +1,173 @@
+function Paddle.new 0
+    push constant 4
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push argument 2
+    pop this 2
+    push argument 3
+    pop this 3
+    push pointer 0
+    call Paddle.draw 1
+    pop temp 0
+    push pointer 0
+    return
+function Paddle.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function Paddle.draw 0
+    push argument 0
+    pop pointer 0
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+    push this 0
+    push this 1
+    push this 0
+    push this 3
+    add
+    push this 1
+    push this 2
+    add
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 0
+    return
+function Paddle.erase 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    call Screen.setColor 1
+    pop temp 0
+    push this 0
+    push this 1
+    push this 0
+    push this 3
+    add
+    push this 1
+    push this 2
+    add
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 0
+    return
+function Paddle.getTop 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    return
+function Paddle.getBottom 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push this 2
+    add
+    return
+function Paddle.getLength 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    return
+function Paddle.moveUp 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push constant 7
+    gt
+    not
+    if-goto Paddle_1
+    push constant 0
+    call Screen.setColor 1
+    pop temp 0
+    push this 0
+    push this 1
+    push this 0
+    push this 3
+    add
+    push this 1
+    push this 2
+    add
+    call Screen.drawRectangle 4
+    pop temp 0
+    push this 1
+    push constant 7
+    sub
+    pop this 1
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+    push this 0
+    push this 1
+    push this 0
+    push this 3
+    add
+    push this 1
+    push this 2
+    add
+    call Screen.drawRectangle 4
+    pop temp 0
+    goto Paddle_0
+label Paddle_1
+label Paddle_0
+    push constant 0
+    return
+function Paddle.moveDown 1
+    push argument 0
+    pop pointer 0
+    push this 1
+    push this 2
+    add
+    pop local 0
+    push local 0
+    push constant 7
+    add
+    push constant 256
+    lt
+    not
+    if-goto Paddle_3
+    push constant 0
+    call Screen.setColor 1
+    pop temp 0
+    push this 0
+    push this 1
+    push this 0
+    push this 3
+    add
+    push this 1
+    push this 2
+    add
+    call Screen.drawRectangle 4
+    pop temp 0
+    push this 1
+    push constant 7
+    add
+    pop this 1
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+    push this 0
+    push this 1
+    push this 0
+    push this 3
+    add
+    push this 1
+    push this 2
+    add
+    call Screen.drawRectangle 4
+    pop temp 0
+    goto Paddle_2
+label Paddle_3
+label Paddle_2
+    push constant 0
+    return
