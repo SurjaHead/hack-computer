@@ -68,6 +68,6 @@ CHIP ALU {
     Not(in= zr2, out= notzr2);
     And(a= notzr1, b= notzr2, out= zr);
 
-    // dont get the logic behind ng - how does the last bit being 1 make it negative
+    // since the value is in 2's complement, last bit being a 1 makes it negative
     And(a=lastbit, b=true, out=ng);
 }
